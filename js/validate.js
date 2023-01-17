@@ -1,10 +1,9 @@
 function validateForm() {
-  var email = document.frm.email.value;
   var name = document.frm.name.value;
+  var email = document.frm.email.value;
   var subject = document.frm.subject.value;
   var message = document.frm.message.value;
   var respose = document.getElementById("res");
-  var success = document.getElementById("sres");
 
   var mailformat = /^[a-zA-Z]\w+@[a-zA-Z]+\.[a-zA-Z]{2,3}$/gm;
   if (mailformat.test(email) == false) {
@@ -24,5 +23,34 @@ function validateForm() {
     return false;
   }
   return true;
-  success.innerHTML = "Email Sent Successfully"
+
 }
+$("#submit-form").submit((e)=>{
+
+e.preventDefault()
+var a=validateForm()
+if(a){
+  $.ajax({
+
+    url:"https://script.google.com/macros/s/AKfycbxUIzLJxm3kEDj7kIMPVUL4xrlU3qknt3QlCPvk2idVNc-Jt-3vP9t24PPHoffVUmsbCg/exec",
+    data:$("#submit-form").serialize(),
+    method:"post",
+    success:function (response){
+
+        alert("form submitted successfully"),
+        window.location.reload()
+        //window.location.href="http://google.com"
+
+    },
+    error:function (err){
+
+        alert("Something Error")
+
+    },
+
+})
+
+}
+
+})
+
